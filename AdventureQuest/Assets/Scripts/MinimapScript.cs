@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class MinimapScript : MonoBehaviour {
 
-    public Transform player;
+    public GameObject player;
+    private Vector3 offset;
 
+    void Start()
+    {
+        offset = transform.position - player.transform.position;
+    }
+
+    // Update is called once per frame
     void LateUpdate()
     {
-        Vector2 newPosition = player.position;
-        newPosition.y = transform.position.y;
-        newPosition.x = transform.position.x;
-        transform.position = newPosition;
+        transform.position = player.transform.position + offset;
     }
 
 }
