@@ -8,12 +8,12 @@ public class LevelGenerator : MonoBehaviour {
     public GameObject wall;
     public List <Vector3> createdTiles;
 
-    public int tileAmount;
+    public int gridSize;
     public float tileSize;
 
-    public float chanceUp;
-    public float chanceRight;
-    public float chanceDown;
+    public float chanceGrass;
+    public float chanceFlowers;
+    //public float chanceRock;
 
     public float waitTime;
 
@@ -23,58 +23,64 @@ public class LevelGenerator : MonoBehaviour {
 
     IEnumerator GenerateLevel()
     {
-        for (int i=0; i < tileAmount; i++)
+        for (int i=0; i < gridSize; i++)
         {
-            float dir = Random.Range(0f, 1f);
-            int tile = Random.Range(0, tiles.Length);
-            if (tile != 0 && tile != 1 && tile !=2)
+            for (int j=0; j < gridSize; j++)
             {
-                tile = Random.Range(0, tiles.Length);
+                transform.position = new Vector3(tileSize * i, tileSize * j, 0);
+                float typeOfTile = Random.Range(0f, 1f);
+                CallCreateTile(typeOfTile);
+            
+                //int tile = Random.Range(0, tiles.Length);
+                //if (tile != 0 && tile != 1 && tile != 2)
+                //{
+                //    tile = Random.Range(0, tiles.Length);
+                //}
+
+                //CreateTile(tile);
+
+                yield return new WaitForSeconds(waitTime);
             }
-
-            CreateTile(tile);
-            CallMoveGen(dir);
-
-            yield return new WaitForSeconds(waitTime);
+            
         }
         yield return 0;
     }
 
-    void CallMoveGen(float ranDir)
+    void CallCreateTile(float type)
     {
-        if (ranDir < chanceUp)
+        if (type < chanceGrass)
         {
-            MoveGen(0);
-        } else if (ranDir < chanceRight)
+            int variation = 0;
+            CreateTile(variation);
+        } else if (type < chanceFlowers)
         {
-            MoveGen(1);
-        } else if (ranDir < chanceDown)
-        {
-            MoveGen(2);
+            int variation = Random.Range(1, 3);
+            CreateTile(variation);
         } else
         {
-            MoveGen(3);
+            int variation = Random.Range(3, 6);
+            CreateTile(variation);
         }
     }
 
-    void MoveGen(int dir)
-    {
-        switch (dir)
-        {
-            case 0:
-                transform.position = new Vector3(transform.position.x, transform.position.y + tileSize, 0);
-                break;
-            case 1:
-                transform.position = new Vector3(transform.position.x + tileSize, transform.position.y, 0);
-                break;
-            case 2:
-                transform.position = new Vector3(transform.position.x, transform.position.y - tileSize, 0);
-                break;
-            case 3:
-                transform.position = new Vector3(transform.position.x - tileSize, transform.position.y, 0);
-                break;
-        }
-    }
+    //void TileSelector(int type)
+    //{
+    //    switch (type)
+    //    {
+    //        case 0:
+    //            transform.position = new Vector3(transform.position.x, transform.position.y + tileSize, 0);
+    //            break;
+    //        case 1:
+    //            transform.position = new Vector3(transform.position.x + tileSize, transform.position.y, 0);
+    //            break;
+    //        case 2:
+    //            transform.position = new Vector3(transform.position.x, transform.position.y - tileSize, 0);
+    //            break;
+    //        case 3:
+    //            transform.position = new Vector3(transform.position.x - tileSize, transform.position.y, 0);
+    //            break;
+    //    }
+    //}
 	
     void CreateTile(int tileIndex)
     {

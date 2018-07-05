@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour {
 
     #region Private Properties
 
-    //Animator animator;
+    Animator animator;
     Vector3 defaultScale;
     float stateStartTime;
 
@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Start()
     {
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         defaultScale = transform.localScale;
     }
 
@@ -88,19 +88,24 @@ public class PlayerMovement : MonoBehaviour {
         switch (state)
         {
             case State.Idle:
-                //animator.Play(IdleAnimation);
+                animator.StopPlayback();
+                animator.Play(IdleAnimation);
                 break;
             case State.RunningLeft:
-                //animator.Play(MovingRight);
+                animator.StopPlayback();
+                animator.Play(MovingRight);
                 break;
             case State.RunningRight:
-                //animator.Play(MovingRight);
+                animator.StopPlayback();
+                animator.Play(MovingRight);
                 break;
             case State.RunningUp:
-                //animator.Play(MovingUp);
+                animator.StopPlayback();
+                animator.Play(MovingUp);
                 break;
             case State.RunningDown:
-                //animator.Play(MovingDown);
+                animator.StopPlayback();
+                animator.Play(MovingDown);
                 break;
         }
 
