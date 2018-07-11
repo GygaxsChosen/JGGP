@@ -17,8 +17,8 @@ TagManager:
   - Middleground
   - Foreground
   - 
-  - 
-  - 
+  - BackgroundElements
+  - PlayerElements
   - 
   - 
   - 
@@ -40,4 +40,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: PlayerElements
+    uniqueID: 24318005
+    locked: 0
+  - name: BackgroundElements
+    uniqueID: 336490919
     locked: 0
