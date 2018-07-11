@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour {
     Animator animator;
     Vector3 defaultScale;
     float stateStartTime;
+    private SpriteRenderer mySpriteRenderer;
 
     float timeInState
     {
@@ -31,7 +32,7 @@ public class PlayerMovement : MonoBehaviour {
     const string MovingUp = "MovingUp";
     const string MovingDown = "MovingDown";
     const string MovingRight = "MovingRight";
-    const string MovingLeft = "MovingRight";
+    const string MovingLeft = "MovingLeft";
 
 
     enum State
@@ -54,6 +55,7 @@ public class PlayerMovement : MonoBehaviour {
     {
         animator = GetComponent<Animator>();
         defaultScale = transform.localScale;
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void Update() {
@@ -93,7 +95,7 @@ public class PlayerMovement : MonoBehaviour {
                 break;
             case State.RunningLeft:
                 animator.StopPlayback();
-                animator.Play(MovingRight);
+                animator.Play(MovingLeft);
                 break;
             case State.RunningRight:
                 animator.StopPlayback();
@@ -149,11 +151,11 @@ public class PlayerMovement : MonoBehaviour {
         {
             case State.RunningLeft:
                 transform.Translate(Vector3.left * Time.deltaTime, Camera.main.transform);
-                transform.localScale = new Vector3(defaultScale.x * -1, defaultScale.y, defaultScale.z);
+                mySpriteRenderer.flipX = true;
                 break;
             case State.RunningRight:
                 transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
-                transform.localScale = new Vector3(defaultScale.x, defaultScale.y, defaultScale.z);
+                mySpriteRenderer.flipX = false;
                 break;
             case State.RunningUp:
                 transform.Translate(Vector3.up * Time.deltaTime, Camera.main.transform);
