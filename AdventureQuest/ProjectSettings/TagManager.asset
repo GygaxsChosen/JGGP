@@ -18,8 +18,8 @@ TagManager:
   - Foreground
   - 
   - BackgroundElements
+  - Buildings
   - PlayerElements
-  - 
   - 
   - 
   - 
@@ -46,4 +46,7 @@ TagManager:
     locked: 0
   - name: BackgroundElements
     uniqueID: 336490919
+    locked: 0
+  - name: Buildings
+    uniqueID: 3320664489
     locked: 0
