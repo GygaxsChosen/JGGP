@@ -18,10 +18,10 @@ TagManager:
   - Foreground
   - 
   - BackgroundElements
+  - Walls
+  - Trees
+  - Buildings
   - PlayerElements
-  - 
-  - 
-  - 
   - 
   - 
   - 
@@ -41,9 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackgroundTiles
+    uniqueID: 1948313785
+    locked: 0
+  - name: Walls
+    uniqueID: 1612013071
+    locked: 0
+  - name: Buildings
+    uniqueID: 336490919
+    locked: 0
+  - name: Trees
+    uniqueID: 2558323101
+    locked: 0
   - name: PlayerElements
     uniqueID: 24318005
-    locked: 0
-  - name: BackgroundElements
-    uniqueID: 336490919
     locked: 0
