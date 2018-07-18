@@ -88,8 +88,6 @@ public class PlayerMovement : MonoBehaviour {
         switch (state)
         {
             case State.Idle:
-                animator.StopPlayback();
-                animator.Play(IdleAnimation);
                 break;
             case State.RunningLeft:
                 animator.StopPlayback();
