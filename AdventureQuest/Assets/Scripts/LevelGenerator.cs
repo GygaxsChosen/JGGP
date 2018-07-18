@@ -60,7 +60,7 @@ public class LevelGenerator : MonoBehaviour {
         transform.position = new Vector3(gridSize * tileSize, 0, 0);
         for (int j = 0; j < gridSize; j++)
         {
-            transform.position = new Vector3(tileSize * gridSize, j * tileSize - 0.065f, 0);
+            transform.position = new Vector3(tileSize * gridSize -.05f, j * tileSize - 0.065f, 0);
             CreateWall(1);
         }
 
