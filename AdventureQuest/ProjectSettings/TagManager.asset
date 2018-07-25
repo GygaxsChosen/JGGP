@@ -8,6 +8,7 @@ TagManager:
   - WallCollider
   - BuildingCollider
   - RockCollider
+  - TreeCollider
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Background
   - Middleground
   - Foreground
-  - 
   - BackgroundElements
+  - CollidableBackground
   - Walls
   - Trees
   - Buildings

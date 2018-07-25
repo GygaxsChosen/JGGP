@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4512983990247484}
   - component: {fileID: 212744909576592620}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: flowerGrass2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1381600837808916}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.185, z: 0}
+  m_LocalPosition: {x: 0.37, y: 0.185, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

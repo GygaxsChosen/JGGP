@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour {
 
     #region Public Properties
 
+    public GameObject tree;
     public bool rightArrow;
     public bool leftArrow;
     public bool upArrow;
@@ -150,6 +151,17 @@ public class PlayerMovement : MonoBehaviour {
         else if (col.gameObject.CompareTag("RockCollider"))
         {
             collision = true;
+        }
+        else if (col.gameObject.CompareTag("TreeCollider"))
+        {
+            //make tree transparent
+            SpriteRenderer spRend = tree.transform.GetComponent<SpriteRenderer>(); 
+            // copy the SpriteRenderer’s color property 
+            Color color = spRend.color; 
+            // change col’s alpha value (0 = invisible, 1 = fully opaque) 
+            color.a = 0.0f; // 0.5f = half transparent 
+            // change the SpriteRenderer’s color property to match the copy with the altered alpha value 
+            spRend.color = color;
         }
     }
 

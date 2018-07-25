@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212520574682532498}
   m_Layer: 14
   m_Name: tree1
-  m_TagString: Untagged
+  m_TagString: TreeCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
