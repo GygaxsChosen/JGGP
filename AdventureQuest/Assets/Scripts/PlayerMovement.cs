@@ -162,26 +162,26 @@ public class PlayerMovement : MonoBehaviour {
                 if (!collision)
                 {
                     transform.localScale = new Vector2(defaultScale.x * -1, defaultScale.y);
-                    transform.Translate(Vector3.left * Time.deltaTime, Camera.main.transform);
+                    transform.Translate(Vector2.left * Time.deltaTime, 0);
                 }
                 break;
             case State.RunningRight:
                 if (!collision)
                 {
-                    transform.localScale = new Vector3(defaultScale.x, defaultScale.y, defaultScale.z);
-                    transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
+                    transform.localScale = new Vector2(defaultScale.x, defaultScale.y);
+                    transform.Translate(Vector2.right * Time.deltaTime, 0);
                 }
                 break;
             case State.RunningUp:
                 if (!collision)
                 {
-                    transform.Translate(Vector3.up * Time.deltaTime, Camera.main.transform);
+                    transform.Translate(Vector2.up * Time.deltaTime, 0);
                 }
                 break;
             case State.RunningDown:
                 if (!collision)
                 {
-                    transform.Translate(Vector3.down * Time.deltaTime, Camera.main.transform);
+                    transform.Translate(Vector2.down * Time.deltaTime, 0);
                 }
                 break;
             case State.Idle:

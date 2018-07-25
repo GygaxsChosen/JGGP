@@ -5,11 +5,16 @@ using UnityEngine;
 public class MinimapScript : MonoBehaviour {
 
     public GameObject player;
+    private float offsetx;
+    private float offsety;
     private Vector3 offset;
 
     void Start()
     {
-        offset = transform.position - player.transform.position;
+        offsetx = transform.position.x - player.transform.position.x;
+        offsety = transform.position.y - player.transform.position.y; ;
+        offset = new Vector3(offsetx, offsety, -.5f);
+
     }
 
     // Update is called once per frame

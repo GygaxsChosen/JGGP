@@ -7,6 +7,6 @@ public class mainMenu : MonoBehaviour {
 
 public void playGame()
     {
-        SceneManager.LoadScene("level_01");
+        SceneManager.LoadScene("July16_Collisions");
     }
 }
