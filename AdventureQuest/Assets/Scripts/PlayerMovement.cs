@@ -8,20 +8,24 @@ public class PlayerMovement : MonoBehaviour {
 
     #region Public Properties
 
+    public float movementSpeed = 4;
     public bool rightArrow;
     public bool leftArrow;
     public bool upArrow;
     public bool downArrow;
-    public float movementSpeed;
 
     #endregion
 
     #region Private Properties
 
-    private Animator animator;
-    private Rigidbody2D rb2D;
-    private Vector3 defaultScale;
-    private bool collision;
+    Animator animator;
+    Vector3 defaultScale;
+    float stateStartTime;
+
+    float timeInState
+    {
+        get { return Time.time - stateStartTime; }
+    }
 
     const string IdleAnimation = "Idle";
     const string MovingUp = "MovingUp";
@@ -49,9 +53,6 @@ public class PlayerMovement : MonoBehaviour {
     public void Start()
     {
         animator = GetComponent<Animator>();
-        rb2D = GetComponent<Rigidbody2D>();
-        rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        rb2D.interpolation = RigidbodyInterpolation2D.Extrapolate;
         defaultScale = transform.localScale;
     }
 
@@ -61,8 +62,9 @@ public class PlayerMovement : MonoBehaviour {
         upArrow = Input.GetKey("up");
         downArrow = Input.GetKey("down");
 
-        CheckState();
+        ContinueState();
         UpdateTransform();
+
     }
 
     #endregion
@@ -86,6 +88,8 @@ public class PlayerMovement : MonoBehaviour {
         switch (state)
         {
             case State.Idle:
+                animator.StopPlayback();
+                animator.Play(IdleAnimation);
                 break;
             case State.RunningLeft:
                 animator.StopPlayback();
@@ -106,9 +110,10 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         this.state = state;
+        stateStartTime = Time.time;
     }
 
-    void CheckState()
+    void ContinueState()
     {
         switch (state)
         {
@@ -137,52 +142,24 @@ public class PlayerMovement : MonoBehaviour {
         return true;
     }
 
-    private void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.CompareTag("WallCollider"))
-        {
-            collision = true;
-        }
-        else if (col.gameObject.CompareTag("BuildingCollider"))
-        {
-            collision = true;
-        }
-        else if (col.gameObject.CompareTag("RockCollider"))
-        {
-            collision = true;
-        }
-    }
-
     void UpdateTransform()
     {
 
         switch (state)
         {
             case State.RunningLeft:
-                if (!collision)
-                {
-                    transform.localScale = new Vector2(defaultScale.x * -1, defaultScale.y);
-                    transform.Translate(Vector3.left * Time.deltaTime, Camera.main.transform);
-                }
+                transform.Translate(Vector3.left * Time.deltaTime, Camera.main.transform);
+                transform.localScale = new Vector3(defaultScale.x * -1, defaultScale.y, defaultScale.z);
                 break;
             case State.RunningRight:
-                if (!collision)
-                {
-                    transform.localScale = new Vector3(defaultScale.x, defaultScale.y, defaultScale.z);
-                    transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
-                }
+                transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
+                transform.localScale = new Vector3(defaultScale.x, defaultScale.y, defaultScale.z);
                 break;
             case State.RunningUp:
-                if (!collision)
-                {
-                    transform.Translate(Vector3.up * Time.deltaTime, Camera.main.transform);
-                }
+                transform.Translate(Vector3.up * Time.deltaTime, Camera.main.transform);
                 break;
             case State.RunningDown:
-                if (!collision)
-                {
-                    transform.Translate(Vector3.down * Time.deltaTime, Camera.main.transform);
-                }
+                transform.Translate(Vector3.down * Time.deltaTime, Camera.main.transform);
                 break;
             case State.Idle:
                 break;
