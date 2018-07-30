@@ -22,7 +22,8 @@ public class PlayerMovement : MonoBehaviour {
     private Animator animator;
     private Rigidbody2D rb2D;
     private Vector3 defaultScale;
-    private bool collision;
+    private bool stopCollision;
+    private bool interactCollision;
 
     const string IdleAnimation = "Idle";
     const string MovingUp = "MovingUp";
@@ -142,26 +143,27 @@ public class PlayerMovement : MonoBehaviour {
     {
         if (col.gameObject.CompareTag("WallCollider"))
         {
-            collision = true;
+            stopCollision = true;
         }
         else if (col.gameObject.CompareTag("BuildingCollider"))
         {
-            collision = true;
+            stopCollision = true;
         }
         else if (col.gameObject.CompareTag("RockCollider"))
         {
-            collision = true;
+            stopCollision = true;
         }
         else if (col.gameObject.CompareTag("TreeCollider"))
         {
+            stopCollision = false;
+
+            //Destroy(col.rigidbody.gameObject);
             //make tree transparent
-            SpriteRenderer spRend = tree.transform.GetComponent<SpriteRenderer>(); 
+            SpriteRenderer spRend = tree.transform.GetComponent<SpriteRenderer>();
             // copy the SpriteRenderer’s color property 
-            Color color = spRend.color; 
+            spRend.color = new Color(1f, 1f, 1f, .0f);
             // change col’s alpha value (0 = invisible, 1 = fully opaque) 
-            color.a = 0.0f; // 0.5f = half transparent 
             // change the SpriteRenderer’s color property to match the copy with the altered alpha value 
-            spRend.color = color;
         }
     }
 
@@ -171,27 +173,27 @@ public class PlayerMovement : MonoBehaviour {
         switch (state)
         {
             case State.RunningLeft:
-                if (!collision)
+                if (!stopCollision)
                 {
                     transform.localScale = new Vector2(defaultScale.x * -1, defaultScale.y);
                     transform.Translate(Vector2.left * Time.deltaTime, 0);
                 }
                 break;
             case State.RunningRight:
-                if (!collision)
+                if (!stopCollision)
                 {
                     transform.localScale = new Vector2(defaultScale.x, defaultScale.y);
                     transform.Translate(Vector2.right * Time.deltaTime, 0);
                 }
                 break;
             case State.RunningUp:
-                if (!collision)
+                if (!stopCollision)
                 {
                     transform.Translate(Vector2.up * Time.deltaTime, 0);
                 }
                 break;
             case State.RunningDown:
-                if (!collision)
+                if (!stopCollision)
                 {
                     transform.Translate(Vector2.down * Time.deltaTime, 0);
                 }

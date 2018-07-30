@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4935966796014744}
   - component: {fileID: 212060041299698364}
+  - component: {fileID: 60908912561576608}
   m_Layer: 15
   m_Name: house3
   m_TagString: BuildingCollider
@@ -40,6 +41,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!60 &60908912561576608
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1115330619697200}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.13, y: 1.51}
+    newSize: {x: 1.13, y: 1.51}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.5047457, y: 0.17526448}
+      - {x: -0.4800229, y: -0.25475073}
+      - {x: -0.47002792, y: -0.7148576}
+      - {x: -0.31008887, y: -0.71502036}
+      - {x: -0.30490398, y: -0.39351815}
+      - {x: 0.3660369, y: -0.39086884}
+      - {x: 0.36507654, y: -0.7199856}
+      - {x: 0.46992826, y: -0.72021484}
+      - {x: 0.46492243, y: 0.18491185}
+      - {x: 0.005035877, y: 0.6650152}
 --- !u!212 &212060041299698364
 SpriteRenderer:
   m_ObjectHideFlags: 1
