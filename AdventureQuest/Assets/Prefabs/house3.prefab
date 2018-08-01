@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4935966796014744}
   - component: {fileID: 212060041299698364}
-  - component: {fileID: 60908912561576608}
+  - component: {fileID: 60122115438369936}
   m_Layer: 15
   m_Name: house3
   m_TagString: BuildingCollider
@@ -41,7 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60908912561576608
+--- !u!60 &60122115438369936
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -65,16 +65,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.5047457, y: 0.17526448}
-      - {x: -0.4800229, y: -0.25475073}
-      - {x: -0.47002792, y: -0.7148576}
-      - {x: -0.31008887, y: -0.71502036}
-      - {x: -0.30490398, y: -0.39351815}
-      - {x: 0.3660369, y: -0.39086884}
-      - {x: 0.36507654, y: -0.7199856}
-      - {x: 0.46992826, y: -0.72021484}
-      - {x: 0.46492243, y: 0.18491185}
-      - {x: 0.005035877, y: 0.6650152}
+    - - {x: 0.0015525818, y: 0.57705176}
+      - {x: -0.45947337, y: 0.1563679}
+      - {x: -0.44636798, y: -0.21220899}
+      - {x: 0.032661676, y: -0.21112764}
+      - {x: 0.50844765, y: -0.22423291}
+      - {x: 0.47602606, y: -0.23012936}
+      - {x: 0.4694729, y: 0.17981517}
+      - {x: 0.022578716, y: 0.55739367}
 --- !u!212 &212060041299698364
 SpriteRenderer:
   m_ObjectHideFlags: 1

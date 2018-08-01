@@ -24,10 +24,10 @@ TagManager:
   - BackgroundElements
   - CollidableBackground
   - Walls
-  - Trees
+  - 
   - Buildings
   - PlayerElements
-  - 
+  - Trees
   - 
   - 
   - 
@@ -55,9 +55,9 @@ TagManager:
   - name: Buildings
     uniqueID: 336490919
     locked: 0
-  - name: Trees
+  - name: PlayerElements
     uniqueID: 2558323101
     locked: 0
-  - name: PlayerElements
+  - name: Trees
     uniqueID: 24318005
     locked: 0
