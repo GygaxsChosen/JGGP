@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour {
     public bool leftArrow;
     public bool upArrow;
     public bool downArrow;
-
+    private bool stopCollision;
+    private Rigidbody2D rb2D;
     #endregion
 
     #region Private Properties
@@ -44,6 +45,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     State state;
+    
 
     #endregion
 
@@ -52,8 +54,9 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Start()
     {
-        animator = GetComponent<Animator>();
-        defaultScale = transform.localScale;
+        rb2D = GetComponent<Rigidbody2D>();
+        rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb2D.interpolation = RigidbodyInterpolation2D.Extrapolate;
     }
 
     public void Update() {
@@ -64,7 +67,7 @@ public class PlayerMovement : MonoBehaviour {
 
         ContinueState();
         UpdateTransform();
-
+     
     }
 
     #endregion
@@ -79,6 +82,14 @@ public class PlayerMovement : MonoBehaviour {
 
     void ExitState()
     {
+
+    }
+    void OnColisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Beach"))
+        {
+            stopCollision = true;
+        }
 
     }
 
@@ -143,23 +154,36 @@ public class PlayerMovement : MonoBehaviour {
     void UpdateTransform()
     {
 
-        switch (state)
-        {
-            case State.RunningLeft:
-                transform.Translate(Vector3.left * Time.deltaTime, Camera.main.transform);
-                transform.localScale = new Vector3(defaultScale.x * -1, defaultScale.y, defaultScale.z);
-                break;
-            case State.RunningRight:
-                transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
-                transform.localScale = new Vector3(defaultScale.x, defaultScale.y, defaultScale.z);
-                break;
-            case State.RunningUp:
-                transform.Translate(Vector3.up * Time.deltaTime, Camera.main.transform);
-                break;
-            case State.RunningDown:
-                transform.Translate(Vector3.down * Time.deltaTime, Camera.main.transform);
-                break;
-            case State.Idle:
+        switch (state) { 
+        case State.RunningLeft:
+            if (!stopCollision)
+            {
+                transform.localScale = new Vector2(defaultScale.x * -1, defaultScale.y);
+                transform.Translate(Vector2.left * Time.deltaTime, 0);
+            }
+            break;
+        case State.RunningRight:
+            if (!stopCollision)
+            {
+                transform.localScale = new Vector2(defaultScale.x, defaultScale.y);
+                transform.Translate(Vector2.right * Time.deltaTime, 0);
+            }
+            break;
+        case State.RunningUp:
+            if (!stopCollision)
+            {
+                transform.Translate(Vector2.up * Time.deltaTime, 0);
+            }
+            break;
+        case State.RunningDown:
+            if (!stopCollision)
+            {
+                transform.Translate(Vector2.down * Time.deltaTime, 0);
+            }
+            break;
+        
+
+        case State.Idle:
                 break;
         }
     }
