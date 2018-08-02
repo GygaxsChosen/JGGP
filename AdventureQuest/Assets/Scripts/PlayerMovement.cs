@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour {
     public bool upArrow;
     public bool downArrow;
     public float movementSpeed;
+    //public float relativeSpeed = 1;
+
 
     #endregion
 
@@ -23,7 +25,8 @@ public class PlayerMovement : MonoBehaviour {
     private Rigidbody2D rb2D;
     private Vector3 defaultScale;
     private bool stopCollision;
-    private bool interactCollision;
+    //private bool slowCollision;
+    //private bool interactCollision;
 
     const string IdleAnimation = "Idle";
     const string MovingUp = "MovingUp";
@@ -141,6 +144,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnCollisionEnter(Collision col)
     {
+
         if (col.gameObject.CompareTag("WallCollider"))
         {
             stopCollision = true;
@@ -153,6 +157,11 @@ public class PlayerMovement : MonoBehaviour {
         {
             stopCollision = true;
         }
+        //else if (col.gameObject.CompareTag("WaterCollision"))
+        //{
+        //    relativeSpeed = .3f;
+        //    stopCollision = false;
+        //}
         else if (col.gameObject.CompareTag("TreeCollider"))
         {
             stopCollision = false;
@@ -169,7 +178,6 @@ public class PlayerMovement : MonoBehaviour {
 
     void UpdateTransform()
     {
-
         switch (state)
         {
             case State.RunningLeft:
@@ -201,6 +209,7 @@ public class PlayerMovement : MonoBehaviour {
             case State.Idle:
                 break;
         }
+        //relativeSpeed = 1;
     }
     #endregion
 
