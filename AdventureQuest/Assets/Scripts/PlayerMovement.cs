@@ -13,10 +13,6 @@ public class PlayerMovement : MonoBehaviour {
     public bool leftArrow;
     public bool upArrow;
     public bool downArrow;
-    public float movementSpeed;
-    //public float relativeSpeed = 1;
-
-
     #endregion
 
     #region Private Properties
@@ -24,9 +20,11 @@ public class PlayerMovement : MonoBehaviour {
     private Animator animator;
     private Rigidbody2D rb2D;
     private Vector3 defaultScale;
+    private float movementSpeed;
+    private float fullSpeed;
+    private float reducedSpeed;
     private bool stopCollision;
-    //private bool slowCollision;
-    //private bool interactCollision;
+    private bool playerIsSlowed;
 
     const string IdleAnimation = "Idle";
     const string MovingUp = "MovingUp";
@@ -56,8 +54,10 @@ public class PlayerMovement : MonoBehaviour {
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        rb2D.interpolation = RigidbodyInterpolation2D.Extrapolate;
         defaultScale = transform.localScale;
+        fullSpeed = 1;
+        reducedSpeed = fullSpeed / 2;
+
     }
 
     public void Update() {
@@ -65,6 +65,7 @@ public class PlayerMovement : MonoBehaviour {
         leftArrow = Input.GetKey("left");
         upArrow = Input.GetKey("up");
         downArrow = Input.GetKey("down");
+        movementSpeed = fullSpeed;
 
         CheckState();
         UpdateTransform();
@@ -142,74 +143,61 @@ public class PlayerMovement : MonoBehaviour {
         return true;
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
 
-        if (col.gameObject.CompareTag("WallCollider"))
+        if (col.gameObject.CompareTag("WaterCollider"))
         {
-            stopCollision = true;
+            playerIsSlowed = true;
         }
-        else if (col.gameObject.CompareTag("BuildingCollider"))
+        if (col.gameObject.CompareTag("TreeCollider"))
         {
-            stopCollision = true;
+            Destroy(col.gameObject);
         }
-        else if (col.gameObject.CompareTag("RockCollider"))
+        if (col.gameObject.CompareTag("CoinCollider"))
         {
-            stopCollision = true;
+            Destroy(col.gameObject);
         }
-        //else if (col.gameObject.CompareTag("WaterCollision"))
-        //{
-        //    relativeSpeed = .3f;
-        //    stopCollision = false;
-        //}
-        else if (col.gameObject.CompareTag("TreeCollider"))
-        {
-            stopCollision = false;
+    }
 
-            //Destroy(col.rigidbody.gameObject);
-            //make tree transparent
-            SpriteRenderer spRend = tree.transform.GetComponent<SpriteRenderer>();
-            // copy the SpriteRenderer’s color property 
-            spRend.color = new Color(1f, 1f, 1f, .0f);
-            // change col’s alpha value (0 = invisible, 1 = fully opaque) 
-            // change the SpriteRenderer’s color property to match the copy with the altered alpha value 
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("WaterCollider"))
+        {
+            playerIsSlowed = false;
         }
     }
 
     void UpdateTransform()
     {
+        if (playerIsSlowed == true)
+        {
+            movementSpeed = reducedSpeed;
+        }
+        else
+        {
+            movementSpeed = fullSpeed;
+        }
+
         switch (state)
         {
             case State.RunningLeft:
-                if (!stopCollision)
-                {
                     transform.localScale = new Vector2(defaultScale.x * -1, defaultScale.y);
-                    transform.Translate(Vector2.left * Time.deltaTime, 0);
-                }
+                    transform.Translate(Vector2.left * Time.deltaTime * movementSpeed, 0);
                 break;
             case State.RunningRight:
-                if (!stopCollision)
-                {
                     transform.localScale = new Vector2(defaultScale.x, defaultScale.y);
-                    transform.Translate(Vector2.right * Time.deltaTime, 0);
-                }
+                    transform.Translate(Vector2.right * Time.deltaTime * movementSpeed, 0);
                 break;
             case State.RunningUp:
-                if (!stopCollision)
-                {
-                    transform.Translate(Vector2.up * Time.deltaTime, 0);
-                }
+                    transform.Translate(Vector2.up * Time.deltaTime * movementSpeed, 0);
                 break;
             case State.RunningDown:
-                if (!stopCollision)
-                {
-                    transform.Translate(Vector2.down * Time.deltaTime, 0);
-                }
+                    transform.Translate(Vector2.down * Time.deltaTime * movementSpeed, 0);
                 break;
             case State.Idle:
                 break;
         }
-        //relativeSpeed = 1;
     }
     #endregion
 
