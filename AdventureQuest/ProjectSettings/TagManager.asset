@@ -10,6 +10,7 @@ TagManager:
   - RockCollider
   - TreeCollider
   - WaterCollider
+  - CoinCollider
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - BackgroundElements
   - CollidableBackground
   - Walls
-  - 
+  - Coins
   - Buildings
   - PlayerElements
   - Trees
@@ -58,6 +59,9 @@ TagManager:
     locked: 0
   - name: PlayerElements
     uniqueID: 2558323101
+    locked: 0
+  - name: Coins
+    uniqueID: 485871411
     locked: 0
   - name: Trees
     uniqueID: 24318005
