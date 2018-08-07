@@ -8,23 +8,25 @@ public class PlayerMovement : MonoBehaviour {
 
     #region Public Properties
 
-    public GameObject tree;
+    public float movementSpeed = 4;
     public bool rightArrow;
     public bool leftArrow;
     public bool upArrow;
     public bool downArrow;
+    private bool stopCollision;
+    private Rigidbody2D rb2D;
     #endregion
 
     #region Private Properties
 
-    private Animator animator;
-    private Rigidbody2D rb2D;
-    private Vector3 defaultScale;
-    private float movementSpeed;
-    private float fullSpeed;
-    private float reducedSpeed;
-    private bool stopCollision;
-    private bool playerIsSlowed;
+    Animator animator;
+    Vector3 defaultScale;
+    float stateStartTime;
+
+    float timeInState
+    {
+        get { return Time.time - stateStartTime; }
+    }
 
     const string IdleAnimation = "Idle";
     const string MovingUp = "MovingUp";
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     State state;
+    
 
     #endregion
 
@@ -51,13 +54,9 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Start()
     {
-        animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-        defaultScale = transform.localScale;
-        fullSpeed = 1;
-        reducedSpeed = fullSpeed / 2;
-
+        rb2D.interpolation = RigidbodyInterpolation2D.Extrapolate;
     }
 
     public void Update() {
@@ -65,10 +64,10 @@ public class PlayerMovement : MonoBehaviour {
         leftArrow = Input.GetKey("left");
         upArrow = Input.GetKey("up");
         downArrow = Input.GetKey("down");
-        movementSpeed = fullSpeed;
 
-        CheckState();
+        ContinueState();
         UpdateTransform();
+     
     }
 
     #endregion
@@ -83,6 +82,14 @@ public class PlayerMovement : MonoBehaviour {
 
     void ExitState()
     {
+
+    }
+    void OnColisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Beach"))
+        {
+            stopCollision = true;
+        }
 
     }
 
@@ -112,9 +119,10 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         this.state = state;
+        stateStartTime = Time.time;
     }
 
-    void CheckState()
+    void ContinueState()
     {
         switch (state)
         {
@@ -143,59 +151,39 @@ public class PlayerMovement : MonoBehaviour {
         return true;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-
-        if (col.gameObject.CompareTag("WaterCollider"))
-        {
-            playerIsSlowed = true;
-        }
-        if (col.gameObject.CompareTag("TreeCollider"))
-        {
-            Destroy(col.gameObject);
-        }
-        if (col.gameObject.CompareTag("CoinCollider"))
-        {
-            Destroy(col.gameObject);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.gameObject.CompareTag("WaterCollider"))
-        {
-            playerIsSlowed = false;
-        }
-    }
-
     void UpdateTransform()
     {
-        if (playerIsSlowed == true)
-        {
-            movementSpeed = reducedSpeed;
-        }
-        else
-        {
-            movementSpeed = fullSpeed;
-        }
 
-        switch (state)
-        {
-            case State.RunningLeft:
-                    transform.localScale = new Vector2(defaultScale.x * -1, defaultScale.y);
-                    transform.Translate(Vector2.left * Time.deltaTime * movementSpeed, 0);
-                break;
-            case State.RunningRight:
-                    transform.localScale = new Vector2(defaultScale.x, defaultScale.y);
-                    transform.Translate(Vector2.right * Time.deltaTime * movementSpeed, 0);
-                break;
-            case State.RunningUp:
-                    transform.Translate(Vector2.up * Time.deltaTime * movementSpeed, 0);
-                break;
-            case State.RunningDown:
-                    transform.Translate(Vector2.down * Time.deltaTime * movementSpeed, 0);
-                break;
-            case State.Idle:
+        switch (state) { 
+        case State.RunningLeft:
+            if (!stopCollision)
+            {
+                transform.localScale = new Vector2(defaultScale.x * -1, defaultScale.y);
+                transform.Translate(Vector2.left * Time.deltaTime, 0);
+            }
+            break;
+        case State.RunningRight:
+            if (!stopCollision)
+            {
+                transform.localScale = new Vector2(defaultScale.x, defaultScale.y);
+                transform.Translate(Vector2.right * Time.deltaTime, 0);
+            }
+            break;
+        case State.RunningUp:
+            if (!stopCollision)
+            {
+                transform.Translate(Vector2.up * Time.deltaTime, 0);
+            }
+            break;
+        case State.RunningDown:
+            if (!stopCollision)
+            {
+                transform.Translate(Vector2.down * Time.deltaTime, 0);
+            }
+            break;
+        
+
+        case State.Idle:
                 break;
         }
     }
