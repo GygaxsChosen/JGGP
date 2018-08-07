@@ -8,25 +8,28 @@ public class PlayerMovement : MonoBehaviour {
 
     #region Public Properties
 
-    public float movementSpeed = 4;
+    public GameObject tree;
     public bool rightArrow;
     public bool leftArrow;
     public bool upArrow;
     public bool downArrow;
+<<<<<<< HEAD
     private bool stopCollision;
     private Rigidbody2D rb2D;
+=======
+>>>>>>> master
     #endregion
 
     #region Private Properties
 
-    Animator animator;
-    Vector3 defaultScale;
-    float stateStartTime;
-
-    float timeInState
-    {
-        get { return Time.time - stateStartTime; }
-    }
+    private Animator animator;
+    private Rigidbody2D rb2D;
+    private Vector3 defaultScale;
+    private float movementSpeed;
+    private float fullSpeed;
+    private float reducedSpeed;
+    private bool stopCollision;
+    private bool playerIsSlowed;
 
     const string IdleAnimation = "Idle";
     const string MovingUp = "MovingUp";
@@ -54,9 +57,19 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Start()
     {
+<<<<<<< HEAD
         rb2D = GetComponent<Rigidbody2D>();
         rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         rb2D.interpolation = RigidbodyInterpolation2D.Extrapolate;
+=======
+        animator = GetComponent<Animator>();
+        rb2D = GetComponent<Rigidbody2D>();
+        rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        defaultScale = transform.localScale;
+        fullSpeed = 1;
+        reducedSpeed = fullSpeed / 2;
+
+>>>>>>> master
     }
 
     public void Update() {
@@ -64,10 +77,14 @@ public class PlayerMovement : MonoBehaviour {
         leftArrow = Input.GetKey("left");
         upArrow = Input.GetKey("up");
         downArrow = Input.GetKey("down");
+        movementSpeed = fullSpeed;
 
-        ContinueState();
+        CheckState();
         UpdateTransform();
+<<<<<<< HEAD
      
+=======
+>>>>>>> master
     }
 
     #endregion
@@ -119,10 +136,9 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         this.state = state;
-        stateStartTime = Time.time;
     }
 
-    void ContinueState()
+    void CheckState()
     {
         switch (state)
         {
@@ -151,9 +167,43 @@ public class PlayerMovement : MonoBehaviour {
         return true;
     }
 
-    void UpdateTransform()
+    private void OnTriggerEnter2D(Collider2D col)
     {
 
+        if (col.gameObject.CompareTag("WaterCollider"))
+        {
+            playerIsSlowed = true;
+        }
+        if (col.gameObject.CompareTag("TreeCollider"))
+        {
+            Destroy(col.gameObject);
+        }
+        if (col.gameObject.CompareTag("CoinCollider"))
+        {
+            Destroy(col.gameObject);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("WaterCollider"))
+        {
+            playerIsSlowed = false;
+        }
+    }
+
+    void UpdateTransform()
+    {
+        if (playerIsSlowed == true)
+        {
+            movementSpeed = reducedSpeed;
+        }
+        else
+        {
+            movementSpeed = fullSpeed;
+        }
+
+<<<<<<< HEAD
         switch (state) { 
         case State.RunningLeft:
             if (!stopCollision)
@@ -184,6 +234,25 @@ public class PlayerMovement : MonoBehaviour {
         
 
         case State.Idle:
+=======
+        switch (state)
+        {
+            case State.RunningLeft:
+                    transform.localScale = new Vector2(defaultScale.x * -1, defaultScale.y);
+                    transform.Translate(Vector2.left * Time.deltaTime * movementSpeed, 0);
+                break;
+            case State.RunningRight:
+                    transform.localScale = new Vector2(defaultScale.x, defaultScale.y);
+                    transform.Translate(Vector2.right * Time.deltaTime * movementSpeed, 0);
+                break;
+            case State.RunningUp:
+                    transform.Translate(Vector2.up * Time.deltaTime * movementSpeed, 0);
+                break;
+            case State.RunningDown:
+                    transform.Translate(Vector2.down * Time.deltaTime * movementSpeed, 0);
+                break;
+            case State.Idle:
+>>>>>>> master
                 break;
         }
     }

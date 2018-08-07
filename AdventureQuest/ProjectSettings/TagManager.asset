@@ -5,7 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+<<<<<<< HEAD
   - Beach
+=======
+  - WallCollider
+  - BuildingCollider
+  - RockCollider
+  - TreeCollider
+  - WaterCollider
+  - CoinCollider
+>>>>>>> master
   layers:
   - Default
   - TransparentFX
@@ -18,13 +27,13 @@ TagManager:
   - Background
   - Middleground
   - Foreground
-  - 
   - BackgroundElements
+  - CollidableBackground
   - Walls
-  - Trees
+  - Coins
   - Buildings
   - PlayerElements
-  - 
+  - Trees
   - 
   - 
   - 
@@ -52,9 +61,12 @@ TagManager:
   - name: Buildings
     uniqueID: 336490919
     locked: 0
-  - name: Trees
+  - name: PlayerElements
     uniqueID: 2558323101
     locked: 0
-  - name: PlayerElements
+  - name: Coins
+    uniqueID: 485871411
+    locked: 0
+  - name: Trees
     uniqueID: 24318005
     locked: 0
