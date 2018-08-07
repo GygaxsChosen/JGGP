@@ -1425,7 +1425,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4418284210165026, guid: d8fa87475f3c7c54cbc4c6d48b036446, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4418284210165026, guid: d8fa87475f3c7c54cbc4c6d48b036446, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1657,17 +1657,20 @@ MonoBehaviour:
   - {fileID: 1897832265}
   - {fileID: 1732366724}
   - {fileID: 1195115248639826, guid: d8fa87475f3c7c54cbc4c6d48b036446, type: 2}
+  - {fileID: 1846583671548510, guid: 1cb583a5855984a45a40734dfb480f41, type: 2}
   walls:
   - {fileID: 656563206}
   - {fileID: 2098229090}
   createdGrass: []
   createdRockGrass: []
   createdTrees: []
+  createdCoins: []
   createdWalls: []
   tileSize: 0.186
   chanceGrass: 0.8
   chanceFlowers: 0.995
-  chanceTrees: 0
+  chanceTrees: 0.03
+  chanceCoins: 0.003
   waitTime: 0
 --- !u!114 &1789463054
 MonoBehaviour:

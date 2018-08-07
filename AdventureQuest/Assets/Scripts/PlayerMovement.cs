@@ -152,7 +152,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         if (col.gameObject.CompareTag("TreeCollider"))
         {
-            Destroy(col.gameObject);
+            //Destroy(col.gameObject);
         }
         if (col.gameObject.CompareTag("CoinCollider"))
         {
