@@ -12,17 +12,20 @@ public class LevelGenerator : MonoBehaviour {
     public List<Vector3> createdTrees;
     public List<Vector3> createdCoins;
     public List<Vector3> createdWalls;
+    public List<Vector3> createdRiver;
+
     public float tileSize;
     public float chanceGrass;
     public float chanceFlowers;
     public float chanceTrees;
     public float chanceCoins;
+    public float chanceWater;
     public float waitTime;
     #endregion
 
     #region Private Properties
-    private int Width = 30;
-    private int Height = 30;
+    private int Width = 60;
+    private int Height = 60;
     #endregion
 
     void Start () {
@@ -35,7 +38,7 @@ public class LevelGenerator : MonoBehaviour {
         #region Generate Grass Biome
         for (int j=0; j < 10; j++)
         {
-            for (int i = 0; i < Width; i++)
+            for (int i = 0; i < Width - 30; i++)
             {
                 transform.position = new Vector3(tileSize * i, tileSize * j, 0);
                 float typeOfTile = Random.Range(0f, 1f);
@@ -44,7 +47,7 @@ public class LevelGenerator : MonoBehaviour {
         }
         for (int j = 10; j < Height; j++)
         {
-            for (int i = 0; i < Width; i++)
+            for (int i = 0; i < Width - 30; i++)
             {
                 transform.position = new Vector3(tileSize * i, tileSize * j, 0);
                 float typeOfTile = Random.Range(0f, 1f);
@@ -53,7 +56,7 @@ public class LevelGenerator : MonoBehaviour {
         }
         for (int j = 20; j < Height; j++)
         {
-            for (int i = 0; i < Width; i++)
+            for (int i = 0; i < Width - 30; i++)
             {
                 transform.position = new Vector3(tileSize * i, tileSize * j, 0);
                 float typeOfTile = Random.Range(0f, 1f);
@@ -62,7 +65,7 @@ public class LevelGenerator : MonoBehaviour {
         }
         for (int j = 10; j < Height; j++)
         {
-            for (int i = 10; i < Width; i++)
+            for (int i = 10; i < Width - 30; i++)
             {
                 transform.position = new Vector3(tileSize * i, tileSize * j, 0);
                 float typeOfTile = Random.Range(0f, 1f);
@@ -70,6 +73,19 @@ public class LevelGenerator : MonoBehaviour {
             }
         }
         #endregion
+
+        #region Generate River
+        for (int j = 0; j < Height; j++)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                transform.position = new Vector3(tileSize * i + 5.63f, tileSize * j, 0);
+                float typeOfTile = Random.Range(0f, 1f);
+                CallCreateWater(typeOfTile);
+            }
+        }
+        #endregion
+
 
         #region Generate Boundary Walls
         transform.position = new Vector3(0, 0, 0);
@@ -154,6 +170,14 @@ public class LevelGenerator : MonoBehaviour {
             CreateCoins(7);
         }
     }
+
+    void CallCreateWater(float type)
+    {
+        if (type < chanceWater)
+        {
+            CreateRiver(8);
+        }
+    }
     #endregion
 
     #region Create Tiles
@@ -187,6 +211,14 @@ public class LevelGenerator : MonoBehaviour {
         coinObject = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
 
         createdTrees.Add(coinObject.transform.position);
+    }
+
+    void CreateRiver(int tileIndex)
+    {
+        GameObject waterObject;
+        waterObject = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
+
+        createdRiver.Add(waterObject.transform.position);
     }
 
     void CreateWall(int wallIndex)

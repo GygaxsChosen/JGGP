@@ -1099,7 +1099,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4352700742301698, guid: e981978dd4b2135449fde0f998618ac1, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.62
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4352700742301698, guid: e981978dd4b2135449fde0f998618ac1, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1251,11 +1251,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4878049344865356, guid: 5b49c9b3d3e319442958a6ec6676279c, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 5.6
       objectReference: {fileID: 0}
     - target: {fileID: 4878049344865356, guid: 5b49c9b3d3e319442958a6ec6676279c, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4878049344865356, guid: 5b49c9b3d3e319442958a6ec6676279c, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1281,6 +1281,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4878049344865356, guid: 5b49c9b3d3e319442958a6ec6676279c, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5b49c9b3d3e319442958a6ec6676279c, type: 2}
   m_IsPrefabParent: 0
@@ -1293,11 +1297,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4935966796014744, guid: 8f4f186569f650c48838640d6b6be3a1, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.865
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 4935966796014744, guid: 8f4f186569f650c48838640d6b6be3a1, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.635
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4935966796014744, guid: 8f4f186569f650c48838640d6b6be3a1, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1421,11 +1425,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4418284210165026, guid: d8fa87475f3c7c54cbc4c6d48b036446, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.665
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4418284210165026, guid: d8fa87475f3c7c54cbc4c6d48b036446, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 6.8
       objectReference: {fileID: 0}
     - target: {fileID: 4418284210165026, guid: d8fa87475f3c7c54cbc4c6d48b036446, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1658,6 +1662,7 @@ MonoBehaviour:
   - {fileID: 1732366724}
   - {fileID: 1195115248639826, guid: d8fa87475f3c7c54cbc4c6d48b036446, type: 2}
   - {fileID: 1846583671548510, guid: 1cb583a5855984a45a40734dfb480f41, type: 2}
+  - {fileID: 1981010540}
   walls:
   - {fileID: 656563206}
   - {fileID: 2098229090}
@@ -1666,11 +1671,13 @@ MonoBehaviour:
   createdTrees: []
   createdCoins: []
   createdWalls: []
+  createdRiver: []
   tileSize: 0.186
   chanceGrass: 0.8
   chanceFlowers: 0.995
   chanceTrees: 0.03
   chanceCoins: 0.003
+  chanceWater: 1
   waitTime: 0
 --- !u!114 &1789463054
 MonoBehaviour:
@@ -1745,6 +1752,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4512983990247484, guid: ae5fe8ff317b016488f21ebbfa7288d3,
     type: 2}
   m_PrefabInternal: {fileID: 2087334462}
+--- !u!1 &1981010540 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1236161540876658, guid: 5b49c9b3d3e319442958a6ec6676279c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1379851432}
 --- !u!1 &1982585998
 GameObject:
   m_ObjectHideFlags: 0
