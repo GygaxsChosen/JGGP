@@ -10,28 +10,29 @@ public class LevelGenerator : MonoBehaviour {
     public List <Vector3> createdGrass;
     public List<Vector3> createdRockGrass;
     public List<Vector3> createdTrees;
+    public List<Vector3> createdCoins;
     public List<Vector3> createdWalls;
     public float tileSize;
     public float chanceGrass;
     public float chanceFlowers;
     public float chanceTrees;
+    public float chanceCoins;
     public float waitTime;
     #endregion
 
-    #region Public Properties
+    #region Private Properties
     private int Width = 30;
     private int Height = 30;
+    #endregion
 
-
-
-
-
-	void Start () {
+    void Start () {
         StartCoroutine(GenerateLevel());
 	}
 
+    #region Generate Level
     IEnumerator GenerateLevel()
     {
+        #region Generate Grass Biome
         for (int j=0; j < 10; j++)
         {
             for (int i = 0; i < Width; i++)
@@ -50,7 +51,7 @@ public class LevelGenerator : MonoBehaviour {
                 CallCreateGrassWithRocks(typeOfTile);
             }
         }
-        for (int j = 0; j < 10; j++)
+        for (int j = 20; j < Height; j++)
         {
             for (int i = 0; i < Width; i++)
             {
@@ -59,7 +60,18 @@ public class LevelGenerator : MonoBehaviour {
                 CallCreateTrees(typeOfTile);
             }
         }
+        for (int j = 10; j < Height; j++)
+        {
+            for (int i = 10; i < Width; i++)
+            {
+                transform.position = new Vector3(tileSize * i, tileSize * j, 0);
+                float typeOfTile = Random.Range(0f, 1f);
+                CallCreateCoins(typeOfTile);
+            }
+        }
+        #endregion
 
+        #region Generate Boundary Walls
         transform.position = new Vector3(0, 0, 0);
         for (int i = 0; i < Width; i++)
         {
@@ -87,10 +99,13 @@ public class LevelGenerator : MonoBehaviour {
             transform.position = new Vector3(tileSize * Height - .05f, j * tileSize - 0.065f, 0);
             CreateWall(1);
         }
+        #endregion
 
         yield return 0;
     }
+    #endregion
 
+    #region Call Create Tiles
     void CallCreateGrass(float type)
     {
         if (type < chanceGrass)
@@ -132,6 +147,16 @@ public class LevelGenerator : MonoBehaviour {
         }
     }
 
+    void CallCreateCoins(float type)
+    {
+        if (type < chanceCoins)
+        {
+            CreateCoins(7);
+        }
+    }
+    #endregion
+
+    #region Create Tiles
     void CreateGrass(int tileIndex)
     {
         GameObject grass;
@@ -156,6 +181,14 @@ public class LevelGenerator : MonoBehaviour {
         createdTrees.Add(treeObject.transform.position);
     }
 
+    void CreateCoins(int tileIndex)
+    {
+        GameObject coinObject;
+        coinObject = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
+
+        createdTrees.Add(coinObject.transform.position);
+    }
+
     void CreateWall(int wallIndex)
     {
         GameObject wallObject;
@@ -163,4 +196,5 @@ public class LevelGenerator : MonoBehaviour {
 
         createdWalls.Add(wallObject.transform.position);
     }
+    #endregion
 }
