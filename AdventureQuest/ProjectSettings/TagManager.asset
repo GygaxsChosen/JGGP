@@ -4,13 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - WallCollider
   - BuildingCollider
   - RockCollider
   - TreeCollider
   - WaterCollider
   - CoinCollider
+  - EnemyCollider
   layers:
   - Default
   - TransparentFX
@@ -29,8 +29,8 @@ TagManager:
   - Coins
   - Buildings
   - PlayerElements
+  - EnemyElements
   - Trees
-  - 
   - 
   - 
   - 
@@ -62,6 +62,9 @@ TagManager:
     locked: 0
   - name: Coins
     uniqueID: 485871411
+    locked: 0
+  - name: Enemies
+    uniqueID: 2641896365
     locked: 0
   - name: Trees
     uniqueID: 24318005
