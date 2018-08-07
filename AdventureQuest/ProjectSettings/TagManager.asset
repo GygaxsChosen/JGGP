@@ -5,12 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+<<<<<<< HEAD
+  - Beach
+=======
   - WallCollider
   - BuildingCollider
   - RockCollider
   - TreeCollider
   - WaterCollider
   - CoinCollider
+>>>>>>> master
   layers:
   - Default
   - TransparentFX

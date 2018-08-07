@@ -13,6 +13,11 @@ public class PlayerMovement : MonoBehaviour {
     public bool leftArrow;
     public bool upArrow;
     public bool downArrow;
+<<<<<<< HEAD
+    private bool stopCollision;
+    private Rigidbody2D rb2D;
+=======
+>>>>>>> master
     #endregion
 
     #region Private Properties
@@ -43,6 +48,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     State state;
+    
 
     #endregion
 
@@ -51,6 +57,11 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Start()
     {
+<<<<<<< HEAD
+        rb2D = GetComponent<Rigidbody2D>();
+        rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb2D.interpolation = RigidbodyInterpolation2D.Extrapolate;
+=======
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         rb2D.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
@@ -58,6 +69,7 @@ public class PlayerMovement : MonoBehaviour {
         fullSpeed = 1;
         reducedSpeed = fullSpeed / 2;
 
+>>>>>>> master
     }
 
     public void Update() {
@@ -69,6 +81,10 @@ public class PlayerMovement : MonoBehaviour {
 
         CheckState();
         UpdateTransform();
+<<<<<<< HEAD
+     
+=======
+>>>>>>> master
     }
 
     #endregion
@@ -83,6 +99,14 @@ public class PlayerMovement : MonoBehaviour {
 
     void ExitState()
     {
+
+    }
+    void OnColisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Beach"))
+        {
+            stopCollision = true;
+        }
 
     }
 
@@ -179,6 +203,38 @@ public class PlayerMovement : MonoBehaviour {
             movementSpeed = fullSpeed;
         }
 
+<<<<<<< HEAD
+        switch (state) { 
+        case State.RunningLeft:
+            if (!stopCollision)
+            {
+                transform.localScale = new Vector2(defaultScale.x * -1, defaultScale.y);
+                transform.Translate(Vector2.left * Time.deltaTime, 0);
+            }
+            break;
+        case State.RunningRight:
+            if (!stopCollision)
+            {
+                transform.localScale = new Vector2(defaultScale.x, defaultScale.y);
+                transform.Translate(Vector2.right * Time.deltaTime, 0);
+            }
+            break;
+        case State.RunningUp:
+            if (!stopCollision)
+            {
+                transform.Translate(Vector2.up * Time.deltaTime, 0);
+            }
+            break;
+        case State.RunningDown:
+            if (!stopCollision)
+            {
+                transform.Translate(Vector2.down * Time.deltaTime, 0);
+            }
+            break;
+        
+
+        case State.Idle:
+=======
         switch (state)
         {
             case State.RunningLeft:
@@ -196,6 +252,7 @@ public class PlayerMovement : MonoBehaviour {
                     transform.Translate(Vector2.down * Time.deltaTime * movementSpeed, 0);
                 break;
             case State.Idle:
+>>>>>>> master
                 break;
         }
     }
