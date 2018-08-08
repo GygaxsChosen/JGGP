@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class PlayerMovement : MonoBehaviour {
 
     #region Public Properties
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour {
     public bool leftArrow;
     public bool upArrow;
     public bool downArrow;
+    public PlayerHealth health;
     #endregion
 
     #region Private Properties
@@ -29,7 +31,8 @@ public class PlayerMovement : MonoBehaviour {
     const string MovingDown = "MovingDown";
     const string MovingRight = "MovingRight";
     const string MovingLeft = "MovingRight";
-
+    const string Enemy1Attack = "Enemy1Attack";
+    const string Enemy2Attack = "Enemy2Attack";
 
     enum State
     {
@@ -145,9 +148,9 @@ public class PlayerMovement : MonoBehaviour {
         {
             playerIsSlowed = true;
         }
-        if (col.gameObject.CompareTag("TreeCollider"))
+        if (col.gameObject.CompareTag("EnemyCollider"))
         {
-
+            health.TakeDamage(10.0f);
         }
         if (col.gameObject.CompareTag("CoinCollider"))
         {

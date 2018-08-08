@@ -26,7 +26,7 @@ public class BoardManager : MonoBehaviour
     public GameObject exit;
     public GameObject[] floorTiles;
     public GameObject[] wallTiles;
-    public GameObject[] enemyTiles;
+     public GameObject[] enemyTiles;
     public GameObject[] outerWallTiles;
 
     private Transform boardHolder;
