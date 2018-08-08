@@ -7,14 +7,17 @@ public class LevelGenerator : MonoBehaviour {
     #region Public Properties
     public GameObject[] tiles;
     public GameObject[] walls;
+
     public List <Vector3> createdGrass;
     public List<Vector3> createdRockGrass;
     public List<Vector3> createdTrees;
     public List<Vector3> createdCoins;
     public List<Vector3> createdWalls;
     public List<Vector3> createdRiver;
+    public List<Vector3> createdDirt;
 
     public float tileSize;
+    public float dirtTileSize;
     public float chanceGrass;
     public float chanceFlowers;
     public float chanceTrees;
@@ -63,9 +66,12 @@ public class LevelGenerator : MonoBehaviour {
                 CallCreateTrees(typeOfTile);
             }
         }
+        #endregion
+
+        #region Generate Objects
         for (int j = 10; j < Height; j++)
         {
-            for (int i = 10; i < Width - 30; i++)
+            for (int i = 10; i < Width; i++)
             {
                 transform.position = new Vector3(tileSize * i, tileSize * j, 0);
                 float typeOfTile = Random.Range(0f, 1f);
@@ -86,6 +92,17 @@ public class LevelGenerator : MonoBehaviour {
         }
         #endregion
 
+        #region Generate Dirt Biome
+        for (int j = 0; j < Height; j++)
+        {
+            for (int i = 33; i < Width; i++)
+            {
+                transform.position = new Vector3(tileSize * i, tileSize * j, 0);
+                float typeOfTile = Random.Range(0f, 1f);
+                CallCreateDirt(typeOfTile);
+            }
+        }
+        #endregion
 
         #region Generate Boundary Walls
         transform.position = new Vector3(0, 0, 0);
@@ -178,6 +195,12 @@ public class LevelGenerator : MonoBehaviour {
             CreateRiver(8);
         }
     }
+
+    void CallCreateDirt(float type)
+    {
+        int variation = Random.Range(9, 11);
+        CreateDirt(variation);
+    }
     #endregion
 
     #region Create Tiles
@@ -219,6 +242,14 @@ public class LevelGenerator : MonoBehaviour {
         waterObject = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
 
         createdRiver.Add(waterObject.transform.position);
+    }
+
+    void CreateDirt(int tileIndex)
+    {
+        GameObject dirtObject;
+        dirtObject = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
+
+        createdDirt.Add(dirtObject.transform.position);
     }
 
     void CreateWall(int wallIndex)
