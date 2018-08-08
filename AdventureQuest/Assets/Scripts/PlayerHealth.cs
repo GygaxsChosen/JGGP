@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -20,40 +21,36 @@ public class PlayerHealth : MonoBehaviour
         p_Dead = false;
 
         SetHealthUI();
+    }
 
-
+    private void Update()
+    {
+        SetHealthUI();
     }
 
     public void TakeDamage(float amount)
     {
-        //amount of danage taken by enemies, will varie on enemy type
+        //amount of danage taken by enemies, will vary on enemy type
 
         p_CurrrentHealth -= amount;
-
-        SetHealthUI();
 
         if (p_CurrrentHealth <= 0f && !p_Dead)
         {
             OnDeath();
         }
-
-
     }
 
     // Update is called once per frame
     private void SetHealthUI()
     {
-
         p_Slider.value = p_CurrrentHealth;
-
         p_FillImage.color = Color.Lerp(p_ZeroHealthColor, p_FullHealthColor, p_CurrrentHealth / p_StartingHealth);
     }
 
     private void OnDeath()
     {
         p_Dead = true;
-
         gameObject.SetActive(true);
-
+        SceneManager.LoadScene("Menu");
     }
 }

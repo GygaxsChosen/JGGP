@@ -28,10 +28,10 @@ TagManager:
   - Walls
   - Coins
   - Buildings
-  - PlayerElements
+  - 
   - EnemyElements
   - Trees
-  - 
+  - PlayerElements
   - 
   - 
   - 
