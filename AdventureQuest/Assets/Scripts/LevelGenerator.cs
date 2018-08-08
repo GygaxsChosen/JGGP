@@ -1,20 +1,26 @@
 ﻿using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour {
 
     #region Public Properties
-    public GameObject[] tiles;
-    public GameObject[] walls;
+    public GameObject[] floorTiles;
+    public GameObject[] wallTiles;
+    public GameObject[] enemies;
+    public GameObject[] trees;
+    public GameObject[] collectables;
+    public GameObject exit;
 
-    public List <Vector3> createdGrass;
+    public List<Vector3> createdGrass;
     public List<Vector3> createdRockGrass;
     public List<Vector3> createdTrees;
     public List<Vector3> createdCoins;
     public List<Vector3> createdWalls;
     public List<Vector3> createdRiver;
     public List<Vector3> createdDirt;
+    public List<Vector3> createdEnemies;
 
     public float tileSize;
     public float dirtTileSize;
@@ -23,7 +29,9 @@ public class LevelGenerator : MonoBehaviour {
     public float chanceTrees;
     public float chanceCoins;
     public float chanceWater;
-    public float waitTime;
+    public float chanceEnemy1;
+    public float chanceEnemy2;
+
     #endregion
 
     #region Private Properties
@@ -68,7 +76,7 @@ public class LevelGenerator : MonoBehaviour {
         }
         #endregion
 
-        #region Generate Objects
+        #region Generate Coins
         for (int j = 10; j < Height; j++)
         {
             for (int i = 10; i < Width; i++)
@@ -100,6 +108,18 @@ public class LevelGenerator : MonoBehaviour {
                 transform.position = new Vector3(tileSize * i, tileSize * j, 0);
                 float typeOfTile = Random.Range(0f, 1f);
                 CallCreateDirt(typeOfTile);
+            }
+        }
+        #endregion
+
+        #region Generate Enemies
+        for (int j = 0; j < Height; j=j+2)
+        {
+            for (int i = 33; i < Width; i=i+2)
+            {
+                transform.position = new Vector3(tileSize * i, tileSize * j, 0);
+                float typeOfTile = Random.Range(0f, 1f);
+                CallCreateEnemies(typeOfTile);
             }
         }
         #endregion
@@ -176,7 +196,7 @@ public class LevelGenerator : MonoBehaviour {
     {
         if (type < chanceTrees)
         {
-            CreateTrees(6);
+            CreateTrees(0);
         }
     }
 
@@ -184,22 +204,30 @@ public class LevelGenerator : MonoBehaviour {
     {
         if (type < chanceCoins)
         {
-            CreateCoins(7);
+            CreateCoins(0);
         }
     }
 
     void CallCreateWater(float type)
     {
-        if (type < chanceWater)
-        {
-            CreateRiver(8);
-        }
+        CreateRiver(6);
     }
 
     void CallCreateDirt(float type)
     {
-        int variation = Random.Range(9, 11);
-        CreateDirt(variation);
+        CreateDirt(7);
+    }
+
+    void CallCreateEnemies(float type)
+    {
+        if (type < chanceEnemy1)
+        {
+            CreateEnemies(0);
+        }
+        else if (type < chanceEnemy2)
+        {
+            CreateEnemies(1);
+        }
     }
     #endregion
 
@@ -207,7 +235,7 @@ public class LevelGenerator : MonoBehaviour {
     void CreateGrass(int tileIndex)
     {
         GameObject grass;
-        grass = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
+        grass = Instantiate(floorTiles[tileIndex], transform.position, transform.rotation) as GameObject;
 
         createdGrass.Add(grass.transform.position);
     }
@@ -215,7 +243,7 @@ public class LevelGenerator : MonoBehaviour {
     void CreateGrassWithRocks(int tileIndex)
     {
         GameObject rockGrass;
-        rockGrass = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
+        rockGrass = Instantiate(floorTiles[tileIndex], transform.position, transform.rotation) as GameObject;
 
         createdRockGrass.Add(rockGrass.transform.position);
     }
@@ -223,7 +251,7 @@ public class LevelGenerator : MonoBehaviour {
     void CreateTrees(int tileIndex)
     {
         GameObject treeObject;
-        treeObject = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
+        treeObject = Instantiate(trees[tileIndex], transform.position, transform.rotation) as GameObject;
 
         createdTrees.Add(treeObject.transform.position);
     }
@@ -231,15 +259,15 @@ public class LevelGenerator : MonoBehaviour {
     void CreateCoins(int tileIndex)
     {
         GameObject coinObject;
-        coinObject = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
+        coinObject = Instantiate(collectables[tileIndex], transform.position, transform.rotation) as GameObject;
 
-        createdTrees.Add(coinObject.transform.position);
+        createdCoins.Add(coinObject.transform.position);
     }
 
     void CreateRiver(int tileIndex)
     {
         GameObject waterObject;
-        waterObject = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
+        waterObject = Instantiate(floorTiles[tileIndex], transform.position, transform.rotation) as GameObject;
 
         createdRiver.Add(waterObject.transform.position);
     }
@@ -247,15 +275,23 @@ public class LevelGenerator : MonoBehaviour {
     void CreateDirt(int tileIndex)
     {
         GameObject dirtObject;
-        dirtObject = Instantiate(tiles[tileIndex], transform.position, transform.rotation) as GameObject;
+        dirtObject = Instantiate(floorTiles[tileIndex], transform.position, transform.rotation) as GameObject;
 
         createdDirt.Add(dirtObject.transform.position);
+    }
+
+    void CreateEnemies(int tileIndex)
+    {
+        GameObject enemyObject;
+        enemyObject = Instantiate(enemies[tileIndex], transform.position, transform.rotation) as GameObject;
+
+        createdEnemies.Add(enemyObject.transform.position);
     }
 
     void CreateWall(int wallIndex)
     {
         GameObject wallObject;
-        wallObject = Instantiate(walls[wallIndex], transform.position, transform.rotation) as GameObject;
+        wallObject = Instantiate(wallTiles[wallIndex], transform.position, transform.rotation) as GameObject;
 
         createdWalls.Add(wallObject.transform.position);
     }

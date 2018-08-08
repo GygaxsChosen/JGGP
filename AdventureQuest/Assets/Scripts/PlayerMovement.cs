@@ -7,8 +7,6 @@ using UnityEngine.Events;
 public class PlayerMovement : MonoBehaviour {
 
     #region Public Properties
-
-    public GameObject tree;
     public bool rightArrow;
     public bool leftArrow;
     public bool upArrow;
@@ -57,7 +55,6 @@ public class PlayerMovement : MonoBehaviour {
         defaultScale = transform.localScale;
         fullSpeed = 1;
         reducedSpeed = fullSpeed / 2;
-
     }
 
     public void Update() {
@@ -118,7 +115,6 @@ public class PlayerMovement : MonoBehaviour {
     {
         switch (state)
         {
-
             case State.Idle:
                 Moving();
                 break;
@@ -145,14 +141,13 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-
         if (col.gameObject.CompareTag("WaterCollider"))
         {
             playerIsSlowed = true;
         }
         if (col.gameObject.CompareTag("TreeCollider"))
         {
-            //Destroy(col.gameObject);
+
         }
         if (col.gameObject.CompareTag("CoinCollider"))
         {
